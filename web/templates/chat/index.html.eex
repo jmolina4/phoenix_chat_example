@@ -1,0 +1,2 @@
+<div id="messages"></div>
+<div id="keyboard"><span class="username"><%= @username %></span>:<input id="chat-input" type="text"></input></div>
