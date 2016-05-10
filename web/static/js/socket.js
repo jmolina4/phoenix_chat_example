@@ -58,6 +58,7 @@ let channel           = socket.channel("rooms:lobby", {})
 let chatInput         = $("#chat-input")
 let messagesContainer = $("#messages")
 
+// SENDING MESSAGES
 $(".userForm").on('submit', function() {
     var username = $("#user_username").val();
     channel.push("user_joined", {username: username})
@@ -71,6 +72,7 @@ chatInput.on("keypress", event => {
   }
 })
 
+// RECEIVING MESSAGES
 channel.on("new_msg", payload => {
   messagesContainer.append(`<br/>[${Date()}][${payload.username}] ${payload.body}`)
 })
@@ -78,6 +80,8 @@ channel.on("new_msg", payload => {
 channel.on("user_joined", payload => {
   messagesContainer.append(`<br/>New user in the room: ${payload.username}`)
 })
+
+// JOIN
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
